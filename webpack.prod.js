@@ -1,16 +1,16 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
-    mode: 'production',
-    plugins: [new MiniCSSExtractPlugin()],
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [MiniCSSExtractPlugin.loader, 'css-loader'],
-            }
-        ],
-    }
+  mode: 'production',
+  plugins: [new MiniCSSExtractPlugin()],
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/,
+        use: [MiniCSSExtractPlugin.loader, 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
 });
