@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+
+<body>
+  <div id="mainApp">
+    <div id="mainHeader">
+      <form id="setPlace" onkeypress="return event.keyCode != 13">
+        <input id="inputPlace" name="inputPlace" type="text">
+      </form>
+      <button id="searchPlace" type="button" for="setPlace">Search</button>
+    </div>
+    <div id="mainResume">
+      <!-- Here we'll display actual weather -->
+    </div>
+    <div id="todayData">
+      <!-- Here we'll display today's weather by hour -->
+    </div>
+    <div id="weekData">
+      <!-- Here we'll display upcoming days weather -->
+    </div>
+  </div>
+</body>
+
+</html>
