@@ -29,19 +29,6 @@ body {
     display: flex;
     align-items: center;
     margin-left: 20px;
-
-    .results {
-      position: absolute;
-      top: 30px;
-      width: 180px;
-      ul {
-        list-style: none;
-      }
-    }
-
-    .hide {
-      display: none;
-    }
   }
 
   #mainResume {
