@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+%lists {
+  list-style: none;
+}
+
 body {
   width: 100vw;
   height: 100vh;
@@ -73,7 +77,7 @@ body {
         padding: 20px 0;
 
         #detailsList {
-          list-style: none;
+          @extend %lists;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -84,6 +88,35 @@ body {
 
             img {
               width: 50px;
+            }
+          }
+        }
+      }
+    }
+
+    #mainRight {
+      display: grid;
+
+      h2 {
+        position: sticky;
+      }
+
+      #hourlyList {
+        @extend %lists;
+        overflow-y: auto;
+
+        li {
+          padding: 0 20px;
+          display: flex;
+          gap: 20px;
+
+          div {
+            display: flex;
+            align-items: center;
+
+            img {
+              height: 50px;
+              width: auto;
             }
           }
         }
