@@ -1,5 +1,6 @@
 import './resultList.scss';
 import events from '../../events';
+import state from '../../state';
 
 // DOM elements
 const inputPlace = document.querySelector('#inputPlace');
@@ -40,39 +41,52 @@ function createList(data) {
   return ul;
 }
 
-function createInputRadio(index, name, result) {
-  const { lat, lon } = result;
+function createInputRadio(index, radioName, result) {
+  const {
+    lat, lon, country, name, local_names,
+  } = result;
+  const lang = state.getData('lang');
   const input = document.createElement('input');
   input.setAttribute('type', 'radio');
   input.setAttribute('id', `radio${index}`);
-  input.setAttribute('name', name);
+  input.setAttribute('name', radioName);
   input.dataset.lat = lat;
   input.dataset.lon = lon;
+  input.dataset.country = country;
+  input.dataset.name = name;
+  if (local_names) {
+    input.dataset.localName = local_names[lang] ? local_names[lang] : name;
+  } else {
+    input.dataset.localName = name;
+  }
   input.addEventListener('click', saveLocation);
   return input;
 }
 
 function createLabel(index, obj) {
-  const { name, country } = obj;
+  const { name, country, local_names } = obj;
+  const lang = state.getData('lang');
+  let labelName;
+  if (local_names) {
+    labelName = local_names[lang] ? local_names[lang] : name;
+  } else {
+    labelName = name;
+  }
   const label = document.createElement('label');
   label.setAttribute('for', `radio${index}`);
-  label.textContent = `Country: ${country}, Name: ${name}`;
+  label.textContent = `${country}, ${labelName}`;
   return label;
 }
 
 function saveLocation(e) {
-  const { lat, lon } = e.srcElement.dataset;
-  // get pending options for units and lang
   const obj = {
-    lat,
-    lon,
-    units: 'metric',
-    lang: 'en',
+    type: 'UPDATE_STATE',
+    state: e.srcElement.dataset,
   };
   // Save to local storage
   events.emit('save settings', obj);
   // Fire event to fetch weather...
-  events.emit('set location', obj); // Make API call to fetch weather
+  events.emit('set location', state.getState()); // Make API call to fetch weather
   resultList.classList.add('hide');
   resultList.replaceChildren();
 }
