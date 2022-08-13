@@ -16,34 +16,48 @@
       </form>
       <button id="searchPlace" type="button" for="setPlace">Search</button>
       <fieldset class="results hide" id="results"></fieldset>
+      <form id="setUnits">
+        <ul>
+          <li>
+            <label for="radioUnitMetric">°C</label>
+            <input type="radio" name="units" id="radioUnitMetric" value="metric" checked>
+          </li>
+          <li>
+            <label for="radioUnitImperial">°F</label>
+            <input type="radio" name="units" id="radioUnitImperial" value="imperial">
+          </li>
+        </ul>
+      </form>
     </div>
     <div id="mainResume">
       <div id="mainLeft">
         <div id="hero">
-          <!-- city -->
-          <span id="heroCity">Test city</span>
-          <!-- dt -->
-          <p id="heroDt">Friday, February 10th 2022</p>
-          <p id="heroClock">01:29 a.m</p>
-          <!-- icon, temp -->
+          <span id="heroCity">Check connection</span>
+          <p id="heroDt"></p>
+          <p id="heroClock"></p>
           <div id="heroIconTemp">
-            <img id="heroIcon" src="http://openweathermap.org/img/wn/10d@4x.png" alt="clouds">
-            <span id="heroTemp">18.66 °C</span>
+            <img id="heroIcon" src="" alt="">
+            <span id="heroTemp"></span>
           </div>
-          <!-- description -->
-          <p id="heroDescription">Broken clouds</p>
+          <p id="heroDescription"></p>
         </div>
         <div id="details">
           <ul id="detailsList">
-            <li><img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""><span>Feels like:</span><span>18.99
-                °C</span>
+            <li>
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+              <span>Feels like:</span>
+              <span id="detailTemp">18.99 °C</span>
             </li>
-            <li><img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""><span>Humidity:</span><span>30%</span>
+            <li>
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+              <span>Humidity:</span><span id="detailHumidity">30%</span>
             </li>
-            <li><img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""><span>Current UVI:</span><span>20%</span>
+            <li><img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+              <span>Current UVI:</span><span id="detailUvi">20%</span>
             </li>
-            <li><img src="http://openweathermap.org/img/wn/10d@2x.png" alt=""><span>Chance of
-                Rain:</span><span>18%</span>
+            <li>
+              <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="">
+              <span>Chance of Rain:</span><span id="detailPop">18%</span>
             </li>
           </ul>
         </div>
