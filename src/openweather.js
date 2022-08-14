@@ -9,6 +9,10 @@ const currentWeatherTempEl = document.querySelector('#heroTemp');
 const currentWeatherDescEl = document.querySelector('#heroDescription');
 const hourlyContainerEl = document.querySelector('#hourlyList');
 
+const detailTempEl = document.querySelector('#detailTemp');
+const detailHumidityEl = document.querySelector('#detailHumidity');
+const detailCloudsEl = document.querySelector('#detailClouds');
+const detailWindEl = document.querySelector('#detailWind');
 
 async function getWeather(obj) {
   // fetch data from API
@@ -34,21 +38,27 @@ function updateAllValues(data) {
 
 function updateHeroValues(data) {
   const {
-    country, localName, current, lang, units,
+    country, localName, current, lang, string,
   } = data;
-  const tempC = units === 'metric' ? '°C' : null;
-  const tempF = tempC ? null : '°F';
   const currentDate = new Date(current.dt * 1000);
   cityEl.textContent = `${localName}, ${country}`;
   currentDateEl.textContent = currentDate.toLocaleString(lang, {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   });
-  currentTimeEl.textContent = currentDate.toLocaleTimeString('en', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+  currentTimeEl.textContent = currentDate.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
   currentWeatherIconEl.src = `http://openweathermap.org/img/wn/${current.weather[0].icon}@4x.png`;
   currentWeatherIconEl.setAttribute('alt', current.weather[0].main);
-  currentWeatherTempEl.textContent = `${current.temp} ${tempC || tempF}`;
+  currentWeatherTempEl.textContent = `${current.temp} ${string.temp}`;
   currentWeatherDescEl.textContent = current.weather[0].description;
+
+  detailTempEl.textContent = `${current.feels_like} ${string.temp}`;
+  detailHumidityEl.textContent = `${current.humidity} %`;
+  detailCloudsEl.textContent = `${current.clouds} %`;
+  detailWindEl.textContent = `${current.wind_speed} ${string.wind}`;
+
 }
+
 events.on('set location', getWeather);
 
 export default getWeather;
