@@ -12,6 +12,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: flex;
+  background-color: gray;
 }
 
 #mainApp {
@@ -123,17 +124,23 @@ body {
         overflow-y: auto;
 
         li {
-          padding: 0 20px;
           display: flex;
           gap: 20px;
 
           div {
             display: flex;
             align-items: center;
+            width: 200px;
+            overflow: hidden;
 
             img {
               height: 50px;
               width: auto;
+            }
+
+            span {
+              flex: 1;
+              text-align: center;
             }
           }
         }

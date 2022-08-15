@@ -20,7 +20,7 @@ const defaultData = {
   lat: '19.4326296',
   lon: '-99.1331785',
   units: 'metric',
-  string: { temp: '°C' },
+  string: { temp: '°C', wind: 'm/s' },
   lang: 'en',
   name: 'Mexico City',
   localName: 'Ciudad de México',
