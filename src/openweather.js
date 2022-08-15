@@ -74,12 +74,12 @@ function updateHeroValues(data) {
 }
 
 function updateHourlyValues(data) {
-  const { hourly, lang } = data;
-  const nodeList = hourly.map((obj) => createHourlyElement(obj, lang));
+  const { hourly, lang, string } = data;
+  const nodeList = hourly.map((obj) => createHourlyElement(obj, lang, string));
   hourlyContainerEl.replaceChildren(...nodeList);
 }
 
-function createHourlyElement(data, lang) {
+function createHourlyElement(data, lang, string) {
   const {
     dt, weather, temp, feels_like, clouds, pop,
   } = data;
@@ -88,7 +88,7 @@ function createHourlyElement(data, lang) {
   const iconDes = weather[0].main;
   const hour = setTime.toLocaleTimeString(lang, { hour12: false, hour: '2-digit', minute: '2-digit' });
   const objProps = {
-    hour, temp, feels_like, clouds, pop: Math.round(pop * 100),
+    hour, temp: `${temp} ${string.temp}`, feels_like: `${feels_like} ${string.temp}`, clouds: `${clouds} %`, pop: `${Math.round(pop * 100)} %`,
   };
   const imgProps = { hour: { src: `./${iconId}@2x.png`, alt: iconDes }, ...iconsSrc };
   const entries = Object.keys(objProps);
