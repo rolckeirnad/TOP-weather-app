@@ -88,7 +88,7 @@ function createHourlyElement(data, lang) {
   const iconDes = weather[0].main;
   const hour = setTime.toLocaleTimeString(lang, { hour12: false, hour: '2-digit', minute: '2-digit' });
   const objProps = {
-    hour, temp, feels_like, clouds, pop: pop * 100,
+    hour, temp, feels_like, clouds, pop: Math.round(pop * 100),
   };
   const imgProps = { hour: { src: `./${iconId}@2x.png`, alt: iconDes }, ...iconsSrc };
   const entries = Object.keys(objProps);
