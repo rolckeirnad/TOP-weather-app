@@ -219,6 +219,9 @@ body {
 
   #mainFooter {
     grid-area: footer;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 
 }
