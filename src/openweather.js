@@ -78,8 +78,8 @@ function updateHeroValues(data) {
 }
 
 function updateHourlyValues(data) {
-  const { hourly, lang, string } = data;
-  const nodeList = hourly.map((obj) => createHourlyElement(obj, lang, string));
+  const { hourly, string } = data;
+  const nodeList = hourly.map((obj) => createHourlyElement(obj, string));
   hourlyContainerEl.replaceChildren(...nodeList);
 }
 
