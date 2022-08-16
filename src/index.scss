@@ -62,6 +62,10 @@ body {
         font-size: 30px;
         height: 100%;
 
+        #heroDescription {
+          text-transform: capitalize;
+        }
+
         #heroIconTemp {
           display: flex;
           align-items: center;
