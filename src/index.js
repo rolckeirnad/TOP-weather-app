@@ -12,9 +12,11 @@ const supportedLanguages = ['af', 'al', 'ar', 'az', 'bg', 'ca', 'cz', 'da',
 
 // DOM elements
 const searchButton = document.querySelector('#searchPlace');
+const radioButtons = [...document.querySelector('#setUnits')];
 
 // Event listeners
 searchButton.addEventListener('click', displayInputResults);
+radioButtons.forEach((radio) => radio.addEventListener('click', setUnits));
 
 // Initialization
 getUserLanguage();
@@ -26,4 +28,16 @@ function getUserLanguage() {
   state.setData(setLanguage, 'lang');
 }
 
-events.emit('set location', state.getState());
+function setUnits(e) {
+  // Get radio units value
+  const { value } = e.srcElement;
+  const temp = value === 'metric' ? '°C' : '°F';
+  const wind = value === 'metric' ? 'm/s' : 'MPH';
+  // Save to state
+  state.setData(value, 'units');
+  // Set new string property depending on units value
+  const units = { temp, wind };
+  // Save to state
+  state.setData(units, 'string');
+  getWeather(state.getState());
+}
