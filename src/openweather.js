@@ -21,6 +21,7 @@ const currentWeatherIconEl = document.querySelector('#heroIcon');
 const currentWeatherTempEl = document.querySelector('#heroTemp');
 const currentWeatherDescEl = document.querySelector('#heroDescription');
 const hourlyContainerEl = document.querySelector('#hourlyList');
+const dailyContainerEl = document.querySelector('#dailyList');
 
 const detailTempEl = document.querySelector('#detailTemp');
 const detailHumidityEl = document.querySelector('#detailHumidity');
@@ -49,6 +50,8 @@ function updateAllValues(data) {
   updateHeroValues(data);
   // We update hourly values
   updateHourlyValues(data);
+  // We update daily values
+  updateDailyValues(data);
 }
 
 function updateHeroValues(data) {
@@ -86,7 +89,7 @@ function createHourlyElement(data, lang, string) {
   const setTime = new Date(dt * 1000);
   const iconId = weather[0].icon;
   const iconDes = weather[0].main;
-  const hour = setTime.toLocaleTimeString(lang, { hour12: false, hour: '2-digit', minute: '2-digit' });
+  const hour = setTime.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
   const objProps = {
     hour, temp: `${temp} ${string.temp}`, feels_like: `${feels_like} ${string.temp}`, clouds: `${clouds} %`, pop: `${Math.round(pop * 100)} %`,
   };
@@ -106,6 +109,62 @@ function createHourlyElement(data, lang, string) {
     return div;
   });
   el.replaceChildren(...nodeList);
+  return el;
+}
+
+function updateDailyValues(data) {
+  const { daily, lang, string } = data;
+  const nodeList = daily.map((obj) => createDailyElement(obj, lang, string));
+  dailyContainerEl.replaceChildren(...nodeList);
+}
+
+function createDailyElement(data, lang) {
+  const {
+    dt, weather, temp, clouds, pop,
+  } = data;
+  const setTime = new Date(dt * 1000);
+  const setDay = setTime.toLocaleDateString(lang, { weekday: 'long', day: 'numeric' });
+
+  const el = document.createElement('li');
+  const div = document.createElement('div');
+  div.className = 'daily-card';
+  const pDay = document.createElement('p');
+  pDay.className = 'daily-card-name';
+  pDay.textContent = setDay;
+
+  const pDayImg = new Image();
+  pDayImg.src = icons(`./${weather[0].icon}@2x.png`);
+
+  const pDescription = document.createElement('p');
+  const weatherValue = document.createElement('span');
+  weatherValue.textContent = weather[0].description;
+  pDescription.append(weatherValue);
+
+  const pTemp = document.createElement('p');
+  const tempImg = new Image();
+  tempImg.src = icons('./icons8-thermometer-48.png');
+  tempImg.className = 'daily-card-icon';
+  const maxTemp = document.createElement('span');
+  maxTemp.textContent = `${temp.max}°`;
+  const minTemp = document.createElement('span');
+  minTemp.textContent = `${temp.min}°`;
+  pTemp.append(tempImg, maxTemp, ' / ', minTemp);
+
+  const pClouds = document.createElement('p');
+  const cloudImg = new Image();
+  cloudImg.src = icons('./icons8-clouds-48.png');
+  cloudImg.className = 'daily-card-icon';
+  const cloudPercent = document.createElement('span');
+  cloudPercent.textContent = `${clouds} %`;
+  const popPercent = document.createElement('span');
+  popPercent.textContent = `${Math.round(pop * 100)}%`;
+  const popImg = new Image();
+  popImg.src = icons('./icons8-wet-48.png');
+  popImg.className = 'daily-card-icon';
+  pClouds.append(cloudImg, cloudPercent, ' ', popImg, popPercent);
+
+  div.append(pDay, pDayImg, pDescription, pTemp, pClouds);
+  el.append(div);
   return el;
 }
 

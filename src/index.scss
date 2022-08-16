@@ -163,15 +163,51 @@ body {
       align-items: center;
 
       li {
-        min-height: 0;
         height: 100%;
+        width: 140px;
+        display: grid;
+        text-align: center;
 
         div {
-          height: 100%;
-          width: 160px;
-          display: grid;
-          justify-content: center;
-          padding: 5px 10px;
+          min-height: 0;
+          min-width: 0;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          p.daily-card-name {
+            text-transform: capitalize;
+          }
+
+          >img {
+            margin-top: -18px;
+            height: 100px;
+            width: 100px;
+          }
+
+          p:nth-child(3) {
+            margin-top: -18px;
+            height: 2.3rem;
+            display: flex;
+            align-items: center;
+          }
+
+          p:nth-child(1n+4){
+            width: 100%;
+            text-align-last: justify;
+          }
+
+          p {
+            img.daily-card-icon {
+              width: 30px;
+            }
+
+            span {
+              font-size: 15px;
+              text-transform: capitalize;
+            }
+          }
         }
       }
     }
