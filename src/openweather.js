@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import events from './events';
 
 const iconsSrc = {
@@ -82,7 +83,7 @@ function updateHourlyValues(data) {
   hourlyContainerEl.replaceChildren(...nodeList);
 }
 
-function createHourlyElement(data, lang, string) {
+function createHourlyElement(data, string) {
   const {
     dt, weather, temp, feels_like, clouds, pop,
   } = data;
