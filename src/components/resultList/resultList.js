@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import './resultList.scss';
 import events from '../../events';
 import state from '../../state';
@@ -5,6 +6,36 @@ import state from '../../state';
 // DOM elements
 const inputPlace = document.querySelector('#inputPlace');
 const resultList = document.querySelector('#results');
+const button = document.querySelector('#searchPlace');
+const main = document.querySelector('#mainApp');
+
+main.addEventListener('click', resultListControl);
+
+function resultListControl(e) {
+  if (e.target.id === 'inputPlace') {
+    showResultsContainer();
+  } else {
+    hideResultsContainer();
+  }
+}
+
+function showResultsContainer() {
+  resultList.classList.remove('hide');
+}
+
+function hideResultsContainer() {
+  resultList.classList.add('hide');
+}
+
+function disableInput() {
+  inputPlace.setAttribute('disabled', '');
+  button.disabled = true;
+}
+
+function enableInput() {
+  inputPlace.removeAttribute('disabled');
+  button.disabled = false;
+}
 
 function displayInputResults() {
   // Format input for API call
@@ -14,7 +45,8 @@ function displayInputResults() {
     // Display some form with returned values from API
     const newList = createList(data);
     resultList.replaceChildren(newList);
-    resultList.classList.remove('hide');
+    // inputPlace click
+    showResultsContainer();
   }).catch((err) => {
     // We could display a message with an error inside result list
     console.error(err);
@@ -23,8 +55,10 @@ function displayInputResults() {
 }
 
 async function getLocation(search) {
+  disableInput();
   const request = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=1a6c8450aa871d00b0a6a4970493b465`, { mode: 'cors' });
   const response = await request.json();
+  enableInput();
   return response;
 }
 
@@ -86,8 +120,8 @@ function saveLocation(e) {
   // Save to local storage
   events.emit('save settings', obj);
   // Fire event to fetch weather...
-  events.emit('set location', state.getState()); // Make API call to fetch weather
-  resultList.classList.add('hide');
+  events.emit('set location', state.getState());
+  hideResultsContainer();
   resultList.replaceChildren();
 }
 
